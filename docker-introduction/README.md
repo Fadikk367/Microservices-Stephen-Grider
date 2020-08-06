@@ -5,7 +5,7 @@
 
 But what is container?
 
-> Single file with all the dependencies and config required to run a program is called an *image*, Container is an instance of an image that runs a program. Is is isolated set of hardware resources etc...
+> Single file with all the dependencies and config required to run a program is called an *image* (file system snapshot + startup commands), Container is an instance of an image that runs a program. Is is isolated set of hardware resources etc. It is a running process along with a subset of resoucess.
 
 
 ### Why we want to use Docker?
@@ -18,3 +18,31 @@ Docker Client allow us to issue commands (Docker CLI) and it communicates with D
 Docker Hub is free public repository of images.
 *docker run hello-world* - runs new container with image "hello-world"
 It checks if it is present in Image Cache and if it is not it downloads it from Docker Hub repository.
+
+Namespacing gives the system an ability to isolate resources such as processes, hard drive, Network, Users etc per process or group of processes
+
+Congrol Groups (cgroups) limit amount of resources used per proces (CPU Usage, memory, HD O/O, network bandwith)
+
+
+docker run = docker create + docker start
+docker create => uses FS Snapshot to create kept in it structure in isolated memory
+docker start => runs all commands
+docker ps - shows all currently running containers
+docker ps --all - shows all run containers
+docker start -a ==> -a shows information coming from container in terminal
+docker logs <container-id> ==> shows all logs from specific container
+dcoker stop "container-id" ==> send SIGSTOP signal to the process, it allows a program to take some time (10 sec max)) and do a little bit of clean up or so
+docker kill "container-id" ==> send SIGKILL signal, immediately kills the process
+docker exec -it <container-id> <command> ==> executes an additional command in a container, -it allows to provide input to the container
+
+-it = -i -t ==> -i connects our terminal to the STDIN of a container
+                -t formats input and output for a better experience
+
+docker exec -it <container-id> sh ==> sh is a command processor, a shell we open a shell in contex of container
+docker run -it busybox sh
+
+Dockerfile schema:
+
+1. Specify a base image
+2. Run some commands to install additional programs
+3. Specify a command to run on container startup
