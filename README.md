@@ -46,5 +46,3 @@ Cons:
 - Hard to understand
 
 [1] Data storages are kind of cheap in modern world, with the cost of 14$ we can store about 100,000,000 records of a size of 1,250 bytes
-
-

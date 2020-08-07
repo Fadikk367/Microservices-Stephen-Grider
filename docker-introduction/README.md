@@ -46,3 +46,29 @@ Dockerfile schema:
 1. Specify a base image
 2. Run some commands to install additional programs
 3. Specify a command to run on container startup
+
+
+With every new command in Dockerfile, we take image that was generated in previous step, we create new container out of it, we do some changes in file system or run some commands, we take snapshot of this new, temporary container and use it for next step...
+
+If we modify the Dockerfile, any changes should be done as far from the beigning as it is possible to allow docker use as much cached images as it is possible - performance and build time purposes
+
+To avoid using images ids we can tag a container to give it a name:
+
+docker build -t adrianfurman/redis:latest .
+
+tag convention:
+
+<your docker ID> / <sepo name> / <version>
+
+Container has its own set of ports!
+
+port forwarding:
+
+docker run -p 8080 : 8080 <image-id/tag>
+               ^       ^
+               |       |
+              [1]     [2]
+
+[1] Route incoming requests to this port on local host to...
+
+[2] this port inside the container
